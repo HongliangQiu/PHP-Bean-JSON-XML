@@ -1,18 +1,14 @@
 <?php
 
-namespace PHPBean;
+namespace PHPBeanTest;
 
-// require_once("phar://PHPBean.phar/autoload.php");
-
-require_once("../../src/autoload.php");
 require_once("../autoload.php");
 
 use Exception;
-use JsonException;
+use PHPBean\Exception\PHPBeanException;
 use PHPBeanTest\Data\GoodsInfoBean;
 use PHPBeanTest\Data\OrderBean;
 use PHPBeanTest\Data\OrderInfoBean;
-use PHPBean\Exception\PHPBeanException;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;
 use SimpleXMLElement;

@@ -2,16 +2,13 @@
 
 namespace PHPBeanTest;
 
-// require_once("phar://PHPBean.phar/autoload.php");
-
-require_once("../../src/autoload.php");
 require_once("../autoload.php");
 
+use PHPBean\Exception\PHPBeanException;
 use PHPBean\JSON;
 use PHPBeanTest\Data\GoodsInfoBean;
 use PHPBeanTest\Data\OrderBean;
 use PHPBeanTest\Data\OrderInfoBean;
-use PHPBean\Exception\PHPBeanException;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -3,6 +3,7 @@
 namespace PHPBean\Attributes;
 
 use PHPBean\Utils\ClassPropertyInfo;
+use PHPBean\Utils\ClassUtil;
 use ReflectionClass;
 use Throwable;
 

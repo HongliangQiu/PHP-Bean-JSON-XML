@@ -6,7 +6,6 @@ use Exception;
 use PHPBean\Exception\PHPBeanException;
 use PHPBean\Exception\PHPBeanExceptionHandler;
 
-
 // todo 增加【配置】默认值选项，如果不存在是否执行默认初始化默认值操作
 
 /**

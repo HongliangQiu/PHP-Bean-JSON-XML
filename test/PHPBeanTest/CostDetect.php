@@ -4,9 +4,6 @@ namespace PHPBeanTest;
 
 $start = microtime(true);
 const ROOT_DIR = "E:/0_auto_sync_file/workingSpaceHelp/php/component/php-bean";
-// require_once("F:/0_快速访问/桌面/phpbean.php");
-require_once(ROOT_DIR . "/src/autoload.php");
-// require_once("phar://F:\\0_快速访问\\桌面\\php-json-bean\\PHPBean.phar\\autoload.php");
 
 $spend = (microtime(true) - $start) * 1000;
 // logx("init require spend:" . $spend);
