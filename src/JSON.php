@@ -13,7 +13,7 @@ use PHPBean\Exception\PHPBeanExceptionHandler;
  */
 class JSON
 {
-    // todo 【新功能】额外增加一些其他的常用方法，便于使用
+    // todo 【新功能】额外增加一些其他的常用方法，便于使用。增加 json_encode 的封装并增加默认配置选项。 JSON_THROW_ON_ERROR，注意非 UTF8 字符的处理
 
     /**
      * Parse a json string, the result is a list of object which is an instance of {className}.
