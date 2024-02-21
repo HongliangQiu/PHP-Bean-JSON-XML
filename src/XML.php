@@ -4,7 +4,6 @@ namespace PHPBean;
 
 use Exception;
 use PHPBean\Exception\PHPBeanException;
-use PHPBean\Exception\PHPBeanExceptionHandler;
 use SimpleXMLElement;
 
 /**
@@ -19,19 +18,13 @@ class XML
      *
      * @param string|null $xmlString
      * @param class-string<T> $className
-     * @param PHPBeanExceptionHandler|null $PHPBeanExceptionHandler The exception handler. If supplies it, will execute it rather than throw an exception.
      * @return T|null
      * @throws PHPBeanException
      */
-    public static function parseObj(?string $xmlString, string $className, PHPBeanExceptionHandler $PHPBeanExceptionHandler = null): ?object
+    public static function parseObj(?string $xmlString, string $className): ?object
     {
-        try {
-            $simpleXMLElement = self::getSimpleXMLElement($xmlString);
-            return ObjectToBean::parseObj($simpleXMLElement, $className);
-        } catch (Exception $e) {
-            self::dealException($e, $PHPBeanExceptionHandler);
-            return null;
-        }
+        $simpleXMLElement = self::getSimpleXMLElement($xmlString);
+        return ObjectToBean::parseObj($simpleXMLElement, $className);
     }
 
     /**
@@ -54,18 +47,5 @@ class XML
             // Restore the config, do not impact the outer program.
             libxml_use_internal_errors($libxml_use_internal_errors);
         }
-    }
-
-    /**
-     * @throws PHPBeanException
-     */
-    private static function dealException(Exception $exception, PHPBeanExceptionHandler $PHPBeanExceptionHandle = null): void
-    {
-        assert($exception != null);
-        $PHPBeanException = new PHPBeanException($exception->getMessage());
-        if ($PHPBeanExceptionHandle === null) {
-            throw $PHPBeanException;
-        }
-        $PHPBeanExceptionHandle->execute($PHPBeanException);
     }
 }

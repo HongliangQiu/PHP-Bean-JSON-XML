@@ -15,8 +15,8 @@ interface ExtensionBeforeHandle
      * @param ReflectionClass $reflectionClass Current class.
      * @param ClassPropertyInfo $classPropertyInfo Current property info which was build by {@see ClassUtil::getClassPropertyInfo()} method
      * @return void
-     * @see ListPropertyType for one using case.
      * @throws Throwable
+     * @see ListPropertyType for one using case.
      */
     public function beforeHandle(ReflectionClass $reflectionClass, ClassPropertyInfo $classPropertyInfo): void;
 }

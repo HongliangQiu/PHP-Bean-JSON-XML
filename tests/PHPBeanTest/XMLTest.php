@@ -2,19 +2,21 @@
 
 namespace PHPBeanTest;
 
-require_once("../autoload.php");
+require ("../../vendor/autoload.php");
 
+use Exception;
 use PHPBean\Exception\PHPBeanException;
-use PHPBean\JSON;
 use PHPBeanTest\Data\GoodsInfoBean;
 use PHPBeanTest\Data\OrderBean;
 use PHPBeanTest\Data\OrderInfoBean;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
+use SimpleXMLElement;
 
 /**
  * @test
  */
-class JSONTest extends TestCase
+class XMLTest extends TestCase
 {
     private static int $testCount = 1;
 
@@ -23,13 +25,14 @@ class JSONTest extends TestCase
      */
     public function testPHPUnitCost()
     {
+        echo 123;
         self::assertNotNull([]);
     }
 
     /**
      * @return void
      */
-    public function testJsonDecodeStd()
+    public function testXMLDecodeStd()
     {
         // $orderBeanExpect = $this->getOrderBean();
         $orderBeanExpect = array(
@@ -52,9 +55,9 @@ class JSONTest extends TestCase
         $orderBeanResult = null;
 
         $start = microtime(true);
-        $str = json_encode($orderBeanExpect, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        // $str = json_encode($orderBeanExpect, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         while ($count--) {
-            $orderBeanResult = json_decode($str, true);
+            // $orderBeanResult = json_decode($str, true);
         }
         $spend = (microtime(true) - $start) * 1000;
         logx("json_decode spend:" . $spend);
@@ -73,37 +76,49 @@ class JSONTest extends TestCase
     /**
      * @return void
      * @throws PHPBeanException
+     * @throws ReflectionException
+     * @throws Exception
      */
     public function testOrderBean()
     {
         // $orderBeanExpect = $this->getOrderBean();
-        $orderBeanExpect = array(
-            'orderNo'  => '订单号',
-            'orderInfo' => array(
-                'goodsCount' => 2,
-                'isCod'      => 'Y',
-                'amount'     => 1.123,
-                'owner_no'    => 'ownerNo别名',
-                'ownerNo'    => 'ownerNo',
-            ),
-            'goodsList' => array(
-                ['specNo' => '商家编码0', 'num' => 0,],
-                ['specNo' => '商家编码1', 'num' => 1,],
-            ),
-            'snList'    => array('sn0', 'sn1', 'sn2',),
-        );
+        $xmlString = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<orderNo>订单号</orderNo>
+	<orderInfo>
+		<goodsCount>2</goodsCount>
+		<isCod>Y</isCod>
+		<amount>1.123</amount>
+		<ownerNo>ownerNo</ownerNo>
+	</orderInfo>
+	<goodsList>
+		<specNo>商家编码0</specNo>
+		<num>0</num>
+	</goodsList>
+	<goodsList>
+		<specNo>商家编码1</specNo>
+		<num>1</num>
+	</goodsList>
+	<snList>sn0</snList>
+	<snList>sn1</snList>
+	<snList>sn2</snList>
+	<multiDimensionalList>
+    </multiDimensionalList>
+</root>
+XML;
 
         $count = self::$testCount;
         $orderBeanResult = null;
         $start = microtime(true);
-        $str = json_encode($orderBeanExpect, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        $simpleXMLElement = new SimpleXMLElement($xmlString);
+        $str = $simpleXMLElement->asXML();
         while ($count--) {
-            $orderBeanResult = JSON::parseObj($str, OrderBean::class);
+            $orderBeanResult = XML::parseObj($str, OrderBean::class);
         }
         $spend = (microtime(true) - $start) * 1000;
-        logx("JSON::parseObj spend:" . $spend);
+        logx("XML::parseObj spend:" . $spend);
         logx($orderBeanResult);
-        // logx($str);
 
         self::assertNotNull($orderBeanResult);
         self::assertIsString($orderBeanResult->orderNo);

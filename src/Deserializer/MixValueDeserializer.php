@@ -18,7 +18,7 @@ class MixValueDeserializer extends Deserializer
             return ListDeserializer::deserialize($targetValue, $classPropertyInfo, $listDimension);
         }
 
-        //   todo 【效率优化】考虑将 callable 数据绑定在， classProperty 上，实例化，这样可以不需要做重复的 match 操作。能提高部分操作的 30% 效率。不能采取 getCaller 的方式，会更慢；这里不是效率问题所在
+        //   todo 【效率优化】考虑将 callable 数据绑定在 classProperty 上，实例化，这样可以不需要做重复的 match 操作。能提高部分操作的 30% 效率。不能采取 getCaller 的方式，会更慢；这里不是效率问题所在
         return match ($classPropertyInfo->getPropertyType()) {
             TypeName::STRING => StringDeserializer::deserialize($targetValue, $classPropertyInfo, $listDimension),
             TypeName::INT, TypeName::INTEGER => IntDeserializer::deserialize($targetValue, $classPropertyInfo, $listDimension),

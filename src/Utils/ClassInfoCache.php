@@ -38,7 +38,6 @@ class ClassInfoCache
     }
 
     /**
-     * @throws
      * @throws ReflectionException|PHPBeanException
      */
     private static function initClassPropertyInfoCache(ReflectionClass $reflectionClass): void

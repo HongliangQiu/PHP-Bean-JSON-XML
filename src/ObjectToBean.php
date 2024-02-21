@@ -15,7 +15,6 @@ use ReflectionException;
 /**
  * @template T
  * @author hl_qiu163@163.com
- * @package ObjectToBean
  */
 class ObjectToBean
 {
@@ -30,7 +29,7 @@ class ObjectToBean
     public static function parseList(array $srcObjectList, string $className): array
     {
         if (!array_is_list($srcObjectList)) {
-            throw new PHPBeanException("The {srcList} is not a list.");
+            throw new PHPBeanException('The {srcList} is not a list.');
         }
 
         $targetValueList = [];
