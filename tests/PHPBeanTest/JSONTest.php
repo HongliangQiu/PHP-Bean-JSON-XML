@@ -2,13 +2,15 @@
 
 namespace PHPBeanTest;
 
-require ("../../vendor/autoload.php");
+require ("../autoload.php");
 
 use PHPBean\Exception\PHPBeanException;
 use PHPBean\JSON;
 use PHPBeanTest\Data\GoodsInfoBean;
 use PHPBeanTest\Data\OrderBean;
 use PHPBeanTest\Data\OrderInfoBean;
+use PHPBeanTest\Data\SimpleMap\SimpleMapBean;
+use PHPBeanTest\Data\SimpleMap\SimpleMapData;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,14 +18,15 @@ use PHPUnit\Framework\TestCase;
  */
 class JSONTest extends TestCase
 {
-    private static int $testCount = 1;
-
     /**
+     * Test for very simple JSON MAP {}
      * @return void
      */
-    public function testPHPUnitCost()
+    public function testSimpleJSONMap()
     {
-        self::assertNotNull([]);
+        $jsonString = SimpleMapData::getJsonString();
+        $parseObj = JSON::parseObj($jsonString, SimpleMapBean::class);
+        var_dump($parseObj);
     }
 
     /**
@@ -48,7 +51,7 @@ class JSONTest extends TestCase
             'snList'    => array('sn0', 'sn1', 'sn2',),
         );
 
-        $count = self::$testCount;
+        $count = 1;
         $orderBeanResult = null;
 
         $start = microtime(true);
@@ -93,7 +96,7 @@ class JSONTest extends TestCase
             'snList'    => array('sn0', 'sn1', 'sn2',),
         );
 
-        $count = self::$testCount;
+        $count = 1;
         $orderBeanResult = null;
         $start = microtime(true);
         $str = json_encode($orderBeanExpect, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
