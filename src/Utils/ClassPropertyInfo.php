@@ -25,7 +25,7 @@ class ClassPropertyInfo
      */
     private string $propertyAlias;
     /**
-     * @var string Type of the property，the name could be a class name.
+     * @var string Type of the property, the name could be a class name.
      * @see ReflectionNamedType::getName()
      */
     private string $propertyType;

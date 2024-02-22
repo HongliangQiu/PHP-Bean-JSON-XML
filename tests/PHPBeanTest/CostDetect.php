@@ -22,8 +22,8 @@ use PHPBeanTest\Data\Bean\OrderBean;
 
 // $orderBeanExpect = $this->getOrderBean();
 $orderBeanExpect = array(
-    'order_no'  => 'orderNo 别名，order_no',
-    // 'orderNo'   => '订单号',
+    'order_no'  => 'orderNo alias, order_no',
+    // 'orderNo'   => 'orderNo',
     'orderInfo' => array(
         'goodsCount' => 2,
         'isCod'      => 'Y',
@@ -31,24 +31,21 @@ $orderBeanExpect = array(
         'ownerNo'    => 'ownerNo',
     ),
     'goodsList' => array(
-        ['specNo' => '商家编码0', 'num' => 0,],
-        ['specNo' => '商家编码1', 'num' => 1,],
+        ['specNo' => 'specNo_0', 'num' => 0,],
+        ['specNo' => 'specNo_1', 'num' => 1,],
     ),
     'snList'    => array('sn0', 'sn1', 'sn2',),
 );
 
 $count = 1;
 $str = json_encode($orderBeanExpect, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-// logx("json 字符串:" . $str);
-// logx("json_decode 结果:" . print_r(json_decode($str), true));
+// logx("json string:" . $str);
+// logx("json_decode result:" . print_r(json_decode($str), true));
 while ($count--) {
     $orderBeanResult = JSON::parseObj($str, OrderBean::class);
 }
 $spend = (microtime(true) - $start) * 1000;
 logx("JSON::parseObj spend:" . $spend);
-// logx("PHPBean 工具的 JSON::parseObj 解析结果:" . print_r($orderBeanResult, true));
-// logx($orderBeanResult);
-// logx($str);
 
 function logx($msg): void
 {

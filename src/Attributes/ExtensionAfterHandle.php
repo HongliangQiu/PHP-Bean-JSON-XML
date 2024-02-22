@@ -6,7 +6,6 @@ use PHPBean\Utils\ClassPropertyInfo;
 use PHPBean\Utils\ClassUtil;
 use Throwable;
 
-// todo 【效率优化】全部做成缓存，先后处理
 interface ExtensionAfterHandle
 {
     /**

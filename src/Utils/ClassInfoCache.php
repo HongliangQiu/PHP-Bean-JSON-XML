@@ -6,20 +6,17 @@ use PHPBean\Exception\PHPBeanException;
 use ReflectionClass;
 use ReflectionException;
 
-/**
- * 单次 json_decode 耗时 0.02 毫秒，parseObj 耗时 4 ms。
- */
 class ClassInfoCache
 {
     /**
-     * 缓存一个类的所有字段信息
+     * Cache all properties of the class.
      *
-     * @var array<string, array<string,ClassPropertyInfo>> key = 类名字; value = list<{类的属性（字段）名字, 类内该属性信息}>
+     * @var array<string, array<string,ClassPropertyInfo>> key = Class Name; value = list<{Class property info}>
      */
     private static array $classPropertyInfoListMapCache = [];
 
     /**
-     * 获取类的缓存信息
+     * Get properties of the class.
      *
      * @param ReflectionClass $reflectionClass
      * @return array<string,ClassPropertyInfo>

@@ -32,7 +32,6 @@ class ClassUtil
      */
     public static function getClassPropertiesInfo(ReflectionClass $reflectionClass): array
     {
-        // todo 【效率优化】很适合修改成 yield. 以便节省内存，检查其他地方
         self::checkClass($reflectionClass);
 
         $reflectionProperties = $reflectionClass->getProperties();
@@ -251,7 +250,7 @@ class ClassUtil
      *
      * @param object $targetBeanInstance
      * @param ClassPropertyInfo $classPropertyInfo
-     * @param mixed $value 简单类型的数据，如果非简单类型，则会做数据类型转换
+     * @param mixed $value
      * @return void
      * @throws ReflectionException | PHPBeanException
      * @throws

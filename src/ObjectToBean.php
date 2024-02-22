@@ -8,9 +8,7 @@ use PHPBean\Utils\ClassInfoCache;
 use PHPBean\Utils\ClassUtil;
 use ReflectionException;
 
-// todo 检查不应该存在的 " 字符，用 ' 替换，报错除外。
 // todo 删除所有中文信息注释、报错，检查是否存在无效代码
-// todo 当前的 classInfoCache 替换成 config。
 
 /**
  * @template T
@@ -43,7 +41,7 @@ class ObjectToBean
     }
 
     /**
-     * 解析一个对象
+     * Deserialize one object
      *
      * @param object $srcObject
      * @param class-string<T> $className
@@ -57,8 +55,6 @@ class ObjectToBean
     }
 
     /**
-     * 这个方法不能被递归调用，因为其中的 getListDimension，否则多维数组无法正常使用
-     *
      * @param class-string<T> $className
      * @return T
      * @throws ReflectionException|PHPBeanException
@@ -70,7 +66,6 @@ class ObjectToBean
 
         /** before handle @see ClassInfoCache::initClassPropertyInfoCache */
 
-        // 从缓存中获取类的所有信息
         $classPropertyInfos = ClassInfoCache::getAllProperties($reflectionClass);
 
         // Traverse the bean class
