@@ -4,10 +4,11 @@ namespace PHPBeanTest\Data\SimpleMap;
 
 use PHPBean\Attributes\ListPropertyType;
 use PHPBean\Enum\TypeName;
+use PHPBeanTest\Data\BeanInstance;
 use stdClass;
 use TestUtil;
 
-class SimpleListBean
+class SimpleListBean implements BeanInstance
 {
     #[ListPropertyType(TypeName::NULL)]
     public array $vNullList;
@@ -56,7 +57,7 @@ class SimpleListBean
         return $simpleListData;
     }
 
-    public static function getJsonString(): bool|string
+    public static function getJsonString(): string
     {
         return json_encode(self::getInstance(), JSON_UNESCAPED_SLASHES);
     }

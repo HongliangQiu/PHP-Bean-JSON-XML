@@ -45,7 +45,6 @@ class ClassInfoCache
         $className = $reflectionClass->name;
         $classPropertyInfos = ClassUtil::getClassPropertiesInfo($reflectionClass);
         if (empty($classPropertyInfos)) {
-            // todo 【可能调整】避免空对象，如果修改为 yield 返回数据，那么这个控制需要调整
             self::$classPropertyInfoListMapCache[$className] = [];
             return;
         }

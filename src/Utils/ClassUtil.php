@@ -129,9 +129,9 @@ class ClassUtil
 
         // bool type
         if (TypeName::BOOL === $reflectionProperty->getType()->getName()) {
-            if (str_starts_with($propertyName, "is_")) {
+            if (str_starts_with($propertyName, 'is_')) {
                 $methodNameList[] = 'set' . substr($propertyName, 4);
-            } elseif (str_starts_with($propertyName, "is")) {
+            } elseif (str_starts_with($propertyName, 'is')) {
                 $methodNameList[] = 'set' . ucfirst(substr($propertyName, 3));
             }
         }
@@ -154,10 +154,10 @@ class ClassUtil
 
         // bool type
         if (TypeName::BOOL === $reflectionProperty->getType()->getName()) {
-            if (str_starts_with($propertyName, "is")) {
+            if (str_starts_with($propertyName, 'is')) {
                 $methodNameList[] = $propertyName;
             } else {
-                $methodNameList[] = "is" . ucfirst($propertyName);
+                $methodNameList[] = 'is' . ucfirst($propertyName);
             }
         }
 

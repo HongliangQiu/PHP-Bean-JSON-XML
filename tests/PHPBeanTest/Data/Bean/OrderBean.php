@@ -3,8 +3,9 @@
 namespace PHPBeanTest\Data\Bean;
 
 use PHPBean\Attributes\ListPropertyType;
+use PHPBeanTest\Data\BeanInstance;
 
-class OrderBean
+class OrderBean implements BeanInstance
 {
     public string $orderNo;
 

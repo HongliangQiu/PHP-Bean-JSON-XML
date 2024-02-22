@@ -32,7 +32,7 @@ class JSON
         }
 
         if (!array_is_list($list)) {
-            throw new PHPBeanException("JSON::parseList failure: the json data is not a list. Please check your json string.");
+            throw new PHPBeanException('JSON::parseList failure: the json data is not a list. Please check your json string.');
         }
 
         try {

@@ -2,7 +2,9 @@
 
 namespace PHPBeanTest\Data\Bean;
 
-class GoodsInfoBean
+use PHPBeanTest\Data\BeanInstance;
+
+class GoodsInfoBean implements BeanInstance
 {
     public ?string $specNo;
     public ?float $goodsCount;
@@ -13,5 +15,10 @@ class GoodsInfoBean
         $goodsInfoBean->specNo = "specNo";
         $goodsInfoBean->goodsCount = 123;
         return $goodsInfoBean;
+    }
+
+    public static function getJsonString(): string
+    {
+        return json_encode(self::getInstance());
     }
 }

@@ -2,9 +2,10 @@
 
 namespace PHPBeanTest\Data\SimpleMap;
 
+use PHPBeanTest\Data\BeanInstance;
 use stdClass;
 
-class SimpleMapBean
+class SimpleMapBean implements BeanInstance
 {
     public string|null $vNull = null;
     public string $vString = 'string';
@@ -34,7 +35,7 @@ class SimpleMapBean
         return $simpleMapData;
     }
 
-    public static function getJsonString(): bool|string
+    public static function getJsonString(): string
     {
         return json_encode(self::getInstance(), JSON_UNESCAPED_SLASHES);
     }

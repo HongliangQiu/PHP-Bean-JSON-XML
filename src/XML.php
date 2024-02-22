@@ -47,7 +47,7 @@ class XML
             return new SimpleXMLElement($xmlString, LIBXML_NOCDATA);
         } catch (Exception $e) {
             $error = libxml_get_errors()[0];
-            throw new PHPBeanException($e->getMessage() . ", " . $error->message);
+            throw new PHPBeanException($e->getMessage() . ',' . $error->message);
         } finally {
             // Restore the config, do not impact the outer program.
             libxml_use_internal_errors($libxml_use_internal_errors);

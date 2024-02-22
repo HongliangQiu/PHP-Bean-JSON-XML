@@ -6,7 +6,7 @@ require("../autoload.php");
 
 use PHPBean\Exception\PHPBeanException;
 use PHPBean\JSON;
-use PHPBeanTest\Data\Bean\OrderBean;
+use PHPBeanTest\Data\Bean\GetterSetterBean;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,11 +20,11 @@ class JSONGetterSetterTest extends TestCase
      * @return void
      * @throws PHPBeanException
      */
-    public function testBeanClass()
+    public function testSetter()
     {
-        $orderBean = OrderBean::getInstance();
-        $jsonString = OrderBean::getJsonString();
-        $parseObj = JSON::parseObj($jsonString, OrderBean::class);
-        self::assertEquals($orderBean, $parseObj);
+        $setterBean = GetterSetterBean::getInstance();
+        $jsonString = GetterSetterBean::getJsonString();
+        $parseObj = JSON::parseObj($jsonString, GetterSetterBean::class);
+        self::assertEquals($setterBean, $parseObj);
     }
 }

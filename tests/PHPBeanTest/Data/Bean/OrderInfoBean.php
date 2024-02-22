@@ -2,7 +2,9 @@
 
 namespace PHPBeanTest\Data\Bean;
 
-class OrderInfoBean
+use PHPBeanTest\Data\BeanInstance;
+
+class OrderInfoBean implements BeanInstance
 {
     public ?int $goodsCount;
     public ?bool $isCod;
@@ -19,5 +21,10 @@ class OrderInfoBean
         $orderInfoBean->ownerNo = "ownerNo";
 
         return $orderInfoBean;
+    }
+
+    public static function getJsonString(): string
+    {
+        return json_encode(self::getInstance());
     }
 }

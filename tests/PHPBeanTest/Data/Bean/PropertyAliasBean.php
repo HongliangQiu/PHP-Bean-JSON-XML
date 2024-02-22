@@ -3,9 +3,10 @@
 namespace PHPBeanTest\Data\Bean;
 
 use PHPBean\Attributes\PropertyAlias;
+use PHPBeanTest\Data\BeanInstance;
 use stdClass;
 
-class PropertyAliasBean
+class PropertyAliasBean implements BeanInstance
 {
     #[PropertyAlias("spec_no")]
     public ?string $specNo;
