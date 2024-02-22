@@ -50,6 +50,12 @@ class ClassPropertyInfo
      * @see ClassUtil::getSetterMethod()
      */
     public readonly ?ReflectionMethod $setterMethod;
+
+    /**
+     * @var ReflectionMethod|null
+     * @see ClassUtil::getGetterMethod()
+     */
+    public readonly ?ReflectionMethod $getterMethod;
     /**
      * the property's ReflectionProperty info
      *
@@ -60,14 +66,17 @@ class ClassPropertyInfo
     /**
      * @param string $className
      * @param ReflectionProperty $reflectionProperty
+     * @param ReflectionMethod|null $getterMethod
      * @param ReflectionMethod|null $setterMethod
      */
-    public function __construct(string $className, ReflectionProperty $reflectionProperty, ?ReflectionMethod $setterMethod)
+    public function __construct(string $className, ReflectionProperty $reflectionProperty, ?ReflectionMethod $getterMethod, ?ReflectionMethod $setterMethod)
     {
         $this->className = $className;
         $this->propertyName = $reflectionProperty->name;
         $this->propertyType = $reflectionProperty->getType()->getName();
         $this->reflectionProperty = $reflectionProperty;
+
+        $this->getterMethod = $getterMethod;
         $this->setterMethod = $setterMethod;
 
         // The alias == property name by default.

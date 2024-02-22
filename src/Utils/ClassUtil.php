@@ -64,65 +64,104 @@ class ClassUtil
     {
         self::checkClassProperty($reflectionProperty, $reflectionClass->name);
 
-        $setterMethod = self::getSetterMethod($reflectionClass, $reflectionProperty->name);
-        return new ClassPropertyInfo($reflectionClass->name, $reflectionProperty, $setterMethod);
+        $getterMethod = null;
+        $setterMethod = null;
+        if (!empty($reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC))) {
+            $getterMethod = self::getGetterMethod($reflectionClass, $reflectionProperty);
+            $setterMethod = self::getSetterMethod($reflectionClass, $reflectionProperty);
+        }
+
+        return new ClassPropertyInfo($reflectionClass->name, $reflectionProperty, $getterMethod, $setterMethod);
     }
 
     /**
      * Get one available setter method of one class property.
      *
      * @param ReflectionClass $reflectionClass
-     * @param string $propertyName
+     * @param ReflectionProperty $reflectionProperty
      * @return ReflectionMethod|null
      */
-    private static function getSetterMethod(ReflectionClass $reflectionClass, string $propertyName): ?ReflectionMethod
+    private static function getSetterMethod(ReflectionClass $reflectionClass, ReflectionProperty $reflectionProperty): ?ReflectionMethod
     {
-        assert($propertyName != '', 'Get setter method failure, {propertyName} can not be empty');
-
-        $ucFirstPropertyName = ucfirst($propertyName);
-
-        // 'camelCase' style
-        $setterMethodName = 'set' . $ucFirstPropertyName;
-        $reflectionMethod = self::checkGetAvailableMethod($reflectionClass, $setterMethodName, 1);
-        if ($reflectionMethod != null) {
-            return $reflectionMethod;
+        $optionSetterNameList = self::getOptionSetterNameList($reflectionProperty);
+        foreach ($optionSetterNameList as $methodName) {
+            $reflectionMethod = self::checkGetAvailableMethod($reflectionClass, $methodName, 1);
+            if ($reflectionMethod != null) {
+                return $reflectionMethod;
+            }
         }
-
-        // 'snake_case' style
-        $setterMethodName = 'set' . '_' . $propertyName;
-        $reflectionMethod = self::checkGetAvailableMethod($reflectionClass, $setterMethodName, 1);
-        if ($reflectionMethod != null) {
-            return $reflectionMethod;
-        }
-
-        // todo 【新功能补全】完成更复杂的一些 setter/getter 方法
-        // @see https://blog.csdn.net/zhangzeyuaaa/article/details/46649061
-        // if (str_starts_with($propertyName, 'is_'))
-        // {
-        //     // 'snake_case' style and starts with 'is_' but method does not have is_
-        //     $setterMethodName = 'set' . '_' . $propertyName;
-        //     $reflectionMethod = self::checkGetAvailableMethod($reflectionClass, $setterMethodName, 1);
-        //     if ($reflectionMethod != null) {
-        //         return $reflectionMethod;
-        //     }
-        // }
-
         return null;
     }
 
     /**
-     * Get Getter method of one class property. It will return null in the following cases:
-     * - not exists the setter method;
-     * - the setter method has any parameter.
+     *  Get Getter method of one class property. It will return null in the following cases:
+     *  - not exists the setter method;
+     *  - the setter method has any parameter.
      *
      * @param ReflectionClass $reflectionClass
-     * @param string $propertyName
+     * @param ReflectionProperty $reflectionProperty
      * @return ReflectionMethod|null
      */
-    private static function getGetterMethod(ReflectionClass $reflectionClass, string $propertyName): ?ReflectionMethod
+    private static function getGetterMethod(ReflectionClass $reflectionClass, ReflectionProperty $reflectionProperty): ?ReflectionMethod
     {
-        // todo 【新功能补全】 finish me 需要用于 json_encode
+        $optionSetterNameList = self::getOptionGetterNameList($reflectionProperty);
+        foreach ($optionSetterNameList as $methodName) {
+            $reflectionMethod = self::checkGetAvailableMethod($reflectionClass, $methodName, 0);
+            if ($reflectionMethod != null) {
+                return $reflectionMethod;
+            }
+        }
         return null;
+    }
+
+    /**
+     * @return string[]
+     */
+    private static function getOptionSetterNameList(ReflectionProperty $reflectionProperty): array
+    {
+        $methodNameList = [];
+        $propertyName = $reflectionProperty->name;
+
+        // 'camelCase' style
+        $methodNameList[] = 'set' . ucfirst($propertyName);
+        // 'snake_case' style
+        $methodNameList[] = 'set' . '_' . $propertyName;
+
+        // bool type
+        if (TypeName::BOOL === $reflectionProperty->getType()->getName()) {
+            if (str_starts_with($propertyName, "is_")) {
+                $methodNameList[] = 'set' . substr($propertyName, 4);
+            } elseif (str_starts_with($propertyName, "is")) {
+                $methodNameList[] = 'set' . ucfirst(substr($propertyName, 3));
+            }
+        }
+
+        return $methodNameList;
+    }
+
+    /**
+     * @return string[]
+     */
+    private static function getOptionGetterNameList(ReflectionProperty $reflectionProperty): array
+    {
+        $methodNameList = [];
+        $propertyName = $reflectionProperty->name;
+
+        // 'camelCase' style
+        $methodNameList[] = 'get' . ucfirst($propertyName);
+        // 'snake_case' style
+        $methodNameList[] = 'get' . '_' . $propertyName;
+
+        // bool type
+        if (TypeName::BOOL === $reflectionProperty->getType()->getName()) {
+            if (str_starts_with($propertyName, "is")) {
+                $methodNameList[] = $propertyName;
+            } else {
+                $methodNameList[] = "is" . ucfirst($propertyName);
+            }
+        }
+
+        return $methodNameList;
     }
 
     /**

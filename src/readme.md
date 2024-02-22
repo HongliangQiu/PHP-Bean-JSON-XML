@@ -1,4 +1,4 @@
-- The getter/setter name should be 'camelCase';
+- The getter/setter name should be 'camelCase'; support set{camelCase}, get{camelCase}, is{camelCase} methods.
 - 建议都加上默认值，或者有 getter 方法，内部用 isset() 或者 ?? 处理，返回默认值，PHP8 要求对象必须初始化（initialized）后才能使用
 - 所有的对象嵌套，都允许为 null，便于使用
 - 考虑字段不传的情况，需要支持 null，比如更新类型的接口
