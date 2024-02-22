@@ -15,6 +15,7 @@ class TypeName
     public const FLOAT = 'float';
     public const DOUBLE = 'double';
     public const ARRAY = 'array';
+    public const OBJECT = 'object';
     public const STDCLASS = 'stdClass';
     public const MIXED = 'mixed';
 }

@@ -17,10 +17,10 @@ class SimpleMapBean
     public float $vFloat = 1.234;
     public float $vDouble = 1.3456789;
     public array $vArray = [];
-    // public ?object $vObject = null;
+    public ?object $vObject = null;
     public ?stdClass $vStdClass = null;
 
-    public static function getInstance()
+    public static function getInstance(): SimpleMapBean
     {
         $simpleMapData = new SimpleMapBean();
 
@@ -29,7 +29,7 @@ class SimpleMapBean
         $stdClass->m2 = "m2";
         $simpleMapData->vStdClass = $stdClass;
 
-        // $simpleMapData->vObject = (object)["a" => "a", "b" => "b"];
+        $simpleMapData->vObject = (object)["a" => "a", "b" => "b"];
 
         return $simpleMapData;
     }

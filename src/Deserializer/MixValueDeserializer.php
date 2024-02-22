@@ -29,6 +29,7 @@ class MixValueDeserializer extends Deserializer
             TypeName::FALSE => false,
             TypeName::ARRAY => ArrayDeserializer::deserialize($targetValue, $classPropertyInfo, $listDimension),
             TypeName::STDCLASS => StdClassDeserializer::deserialize($targetValue, $classPropertyInfo, $listDimension),
+            TypeName::OBJECT => ObjectDeserializer::deserialize($targetValue, $classPropertyInfo, $listDimension),
             default => BeanClassDeserializer::deserialize($targetValue, $classPropertyInfo, $listDimension),
         };
     }
