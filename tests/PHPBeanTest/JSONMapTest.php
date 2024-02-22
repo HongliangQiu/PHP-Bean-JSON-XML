@@ -6,9 +6,9 @@ require("../autoload.php");
 
 use PHPBean\Exception\PHPBeanException;
 use PHPBean\JSON;
-use PHPBeanTest\Data\GoodsInfoBean;
-use PHPBeanTest\Data\OrderBean;
-use PHPBeanTest\Data\OrderInfoBean;
+use PHPBeanTest\Data\Bean\GoodsInfoBean;
+use PHPBeanTest\Data\Bean\OrderBean;
+use PHPBeanTest\Data\Bean\OrderInfoBean;
 use PHPBeanTest\Data\SimpleMap\SimpleListBean;
 use PHPBeanTest\Data\SimpleMap\SimpleMapBean;
 use PHPUnit\Framework\TestCase;
@@ -24,7 +24,7 @@ class JSONMapTest extends TestCase
      * @return void
      * @throws PHPBeanException
      */
-    public function testParseObjectSimpleMap()
+    public function testSimpleMap()
     {
         $simpleMapData = SimpleMapBean::getInstance();
         $jsonString = SimpleMapBean::getJsonString();
@@ -38,7 +38,7 @@ class JSONMapTest extends TestCase
      * @return void
      * @throws PHPBeanException
      */
-    public function testParseObjectSimpleListElement()
+    public function testSimpleListElement()
     {
         $simpleListData = SimpleListBean::getInstance();
         $jsonString = SimpleListBean::getJsonString();
@@ -48,105 +48,14 @@ class JSONMapTest extends TestCase
 
     /**
      * @return void
-     */
-    public function testJsonDecodeStd()
-    {
-        // $orderBeanExpect = $this->getOrderBean();
-        $orderBeanExpect = array(
-            'orderNo'   => '订单号',
-            '无效字段'  => '订单号',
-            'orderInfo' => array(
-                'goodsCount' => 2,
-                'isCod'      => 'Y',
-                'amount'     => 1.123,
-                'ownerNo'    => 'ownerNo',
-            ),
-            'goodsList' => array(
-                ['specNo' => '商家编码0', 'num' => 0,],
-                ['specNo' => '商家编码1', 'num' => 1,],
-            ),
-            'snList'    => array('sn0', 'sn1', 'sn2',),
-        );
-
-        $count = 1;
-        $orderBeanResult = null;
-
-        $start = microtime(true);
-        $str = json_encode($orderBeanExpect, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        while ($count--) {
-            $orderBeanResult = json_decode($str, true);
-        }
-        $spend = (microtime(true) - $start) * 1000;
-        logx("json_decode spend:" . $spend);
-
-        self::assertNotNull($orderBeanResult);
-        // self::assertIsString($orderBeanResult->orderNo);
-        // self::assertEquals("订单号", $orderBeanResult->orderNo);
-        // self::assertInstanceOf(OrderBean::class, $orderBeanResult);
-        //
-        // $this->testOrderInfoBean($orderBeanResult->orderInfo);
-        // $this->testSnList($orderBeanResult->snList);
-        // $this->testGoodsInfoList($orderBeanResult->goodsList);
-    }
-
-    /**
-     * @return void
      * @throws PHPBeanException
      */
-    public function testOrderBean()
+    public function testBeanClass()
     {
-        // $orderBeanExpect = $this->getOrderBean();
-        $orderBeanExpect = array(
-            'orderNo'   => '订单号',
-            'orderInfo' => array(
-                'goodsCount' => 2,
-                'isCod'      => 'Y',
-                'amount'     => 1.123,
-                'owner_no'   => 'ownerNo别名',
-                'ownerNo'    => 'ownerNo',
-            ),
-            'goodsList' => array(
-                ['specNo' => '商家编码0', 'num' => 0,],
-                ['specNo' => '商家编码1', 'num' => 1,],
-            ),
-            'snList'    => array('sn0', 'sn1', 'sn2',),
-        );
-
-        $count = 1;
-        $orderBeanResult = null;
-        $start = microtime(true);
-        $str = json_encode($orderBeanExpect, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        while ($count--) {
-            $orderBeanResult = JSON::parseObj($str, OrderBean::class);
-        }
-        $spend = (microtime(true) - $start) * 1000;
-        logx("JSON::parseObj spend:" . $spend);
-        logx($orderBeanResult);
-        // logx($str);
-
-        self::assertNotNull($orderBeanResult);
-        self::assertIsString($orderBeanResult->orderNo);
-        self::assertEquals("订单号", $orderBeanResult->orderNo);
-        self::assertInstanceOf(OrderBean::class, $orderBeanResult);
-
-        $this->testOrderInfoBean($orderBeanResult->orderInfo);
-        $this->testSnList($orderBeanResult->snList);
-        $this->testGoodsInfoList($orderBeanResult->goodsList);
-    }
-
-    /**
-     * @throws PHPBeanException
-     */
-    public function testParseList()
-    {
-        $goodsList = array(
-            ['specNo' => '商家编码0', 'num' => 0,],
-            ['specNo' => '商家编码1', 'num' => 1,],
-        );
-        $str = json_encode($goodsList, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        $goodsInfoBeans = JSON::parseList($str, GoodsInfoBean::class);
-        fwrite(STDOUT, print_r($goodsInfoBeans, true));
-        self::assertIsList($goodsInfoBeans);
+        $orderBean = OrderBean::getInstance();
+        $jsonString = OrderBean::getJsonString();
+        $parseObj = JSON::parseObj($jsonString, OrderBean::class);
+        self::assertEquals($orderBean, $parseObj);
     }
 
     private function createGoodsInfoBean(string $specNo, int $num): GoodsInfoBean

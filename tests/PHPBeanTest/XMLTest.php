@@ -6,9 +6,9 @@ require ("../../vendor/autoload.php");
 
 use Exception;
 use PHPBean\Exception\PHPBeanException;
-use PHPBeanTest\Data\GoodsInfoBean;
-use PHPBeanTest\Data\OrderBean;
-use PHPBeanTest\Data\OrderInfoBean;
+use PHPBeanTest\Data\Bean\GoodsInfoBean;
+use PHPBeanTest\Data\Bean\OrderBean;
+use PHPBeanTest\Data\Bean\OrderInfoBean;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;
 use SimpleXMLElement;

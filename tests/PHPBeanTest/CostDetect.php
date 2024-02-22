@@ -18,7 +18,7 @@ require ROOT_DIR . "/test/PHPBeanTest/Data/OrderInfoBean.php";
 require ROOT_DIR . "/test/PHPBeanTest/Data/GoodsInfoBean.php";
 
 use PHPBean\JSON;
-use PHPBeanTest\Data\OrderBean;
+use PHPBeanTest\Data\Bean\OrderBean;
 
 // $orderBeanExpect = $this->getOrderBean();
 $orderBeanExpect = array(
