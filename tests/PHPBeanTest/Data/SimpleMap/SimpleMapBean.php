@@ -2,13 +2,15 @@
 
 namespace PHPBeanTest\Data\SimpleMap;
 
+use PHPBean\Attributes\Validator\NotBlank;
 use PHPBeanTest\Data\BeanInstance;
 use stdClass;
 
 class SimpleMapBean implements BeanInstance
 {
     public string|null $vNull = null;
-    public string $vString = 'string';
+
+    public string $vString = '';
     public bool $vBool = false;
     public bool $vTrue = true;
     public bool $vFalse = false;
@@ -17,7 +19,7 @@ class SimpleMapBean implements BeanInstance
     public int $vInteger = -1;
     public float $vFloat = 1.234;
     public float $vDouble = 1.3456789;
-    public array $vArray = [];
+    public array $vArray = [1, 2, 3];
     public ?object $vObject = null;
     public ?stdClass $vStdClass = null;
 

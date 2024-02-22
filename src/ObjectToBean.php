@@ -8,8 +8,6 @@ use PHPBean\Utils\ClassInfoCache;
 use PHPBean\Utils\ClassUtil;
 use ReflectionException;
 
-// todo 删除所有中文信息注释、报错，检查是否存在无效代码
-
 /**
  * @template T
  * @author hl_qiu163@163.com

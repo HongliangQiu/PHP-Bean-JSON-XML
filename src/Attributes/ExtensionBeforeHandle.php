@@ -2,10 +2,10 @@
 
 namespace PHPBean\Attributes;
 
+use Exception;
 use PHPBean\Utils\ClassPropertyInfo;
 use PHPBean\Utils\ClassUtil;
 use ReflectionClass;
-use Throwable;
 
 interface ExtensionBeforeHandle
 {
@@ -15,7 +15,7 @@ interface ExtensionBeforeHandle
      * @param ReflectionClass $reflectionClass Current class.
      * @param ClassPropertyInfo $classPropertyInfo Current property info which was build by {@see ClassUtil::getClassPropertyInfo()} method
      * @return void
-     * @throws Throwable
+     * @throws Exception
      * @see ListPropertyType for one using case.
      */
     public function beforeHandle(ReflectionClass $reflectionClass, ClassPropertyInfo $classPropertyInfo): void;

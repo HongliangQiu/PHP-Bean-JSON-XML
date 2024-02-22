@@ -3,6 +3,7 @@
 namespace PHPBean\Utils;
 
 use Error;
+use Exception;
 use PHPBean\Attributes\ExtensionAfterHandle;
 use PHPBean\Attributes\ExtensionBeforeHandle;
 use PHPBean\Enum\TypeName;
@@ -16,7 +17,6 @@ use ReflectionNamedType;
 use ReflectionProperty;
 use ReflectionUnionType;
 use SimpleXMLElement;
-use Throwable;
 
 /**
  * The util for class
@@ -329,6 +329,7 @@ class ClassUtil
 
     /**
      * @throws PHPBeanException
+     * @throws Exception
      */
     public static function executeBeforeHandleAttribute(ReflectionClass $reflectionClass, ClassPropertyInfo $classPropertyInfo): void
     {
@@ -343,17 +344,13 @@ class ClassUtil
                 $attributeName = $reflectionAttribute->getName();
                 throw new PHPBeanException("Execute BeforeHandle failure: can not instantiate the attribute class [$attributeName], the class of attribute must implement 'ExtensionBeforeHandle' interface.");
             }
-
-            try {
-                $newInstance->beforeHandle($reflectionClass, $classPropertyInfo);
-            } catch (Throwable $e) {
-                throw new PHPBeanException("Execute BeforeHandle failure: {$e->getMessage()}");
-            }
+            $newInstance->beforeHandle($reflectionClass, $classPropertyInfo);
         }
     }
 
     /**
      * @throws PHPBeanException
+     * @throws Exception
      */
     public static function executeAfterHandleAttribute(object $targetBeanInstance, ClassPropertyInfo $classPropertyInfo, mixed &$currentValue): void
     {
@@ -368,11 +365,7 @@ class ClassUtil
                 throw new PHPBeanException("Execute AfterHandle failure: can not instantiate the attribute class [$attributeName], the attribute class must implement 'ExtensionAfterHandle' interface.");
             }
 
-            try {
-                $newInstance->afterHandle($targetBeanInstance, $classPropertyInfo, $currentValue);
-            } catch (Throwable $e) {
-                throw new PHPBeanException("Execute AfterHandle failure: {$e->getMessage()}");
-            }
+            $newInstance->afterHandle($targetBeanInstance, $classPropertyInfo, $currentValue);
         }
     }
 }

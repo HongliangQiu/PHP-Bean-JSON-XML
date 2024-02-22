@@ -2,9 +2,9 @@
 
 namespace PHPBean\Attributes;
 
+use Exception;
 use PHPBean\Utils\ClassPropertyInfo;
 use PHPBean\Utils\ClassUtil;
-use Throwable;
 
 interface ExtensionAfterHandle
 {
@@ -15,7 +15,7 @@ interface ExtensionAfterHandle
      * @param ClassPropertyInfo $classPropertyInfo Current property info which was build by {@see ClassUtil::getClassPropertyInfo()} method
      * @param mixed $currentValue Current value. Maybe you can modify it by this handle.
      * @return void
-     * @throws Throwable
+     * @throws Exception
      */
     public function afterHandle(object $targetBeanInstance, ClassPropertyInfo $classPropertyInfo, mixed &$currentValue): void;
 }
