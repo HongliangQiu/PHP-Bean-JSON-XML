@@ -9,13 +9,14 @@ use PHPBean\JSON;
 use PHPBeanTest\Data\GoodsInfoBean;
 use PHPBeanTest\Data\OrderBean;
 use PHPBeanTest\Data\OrderInfoBean;
+use PHPBeanTest\Data\SimpleMap\SimpleListBean;
 use PHPBeanTest\Data\SimpleMap\SimpleMapBean;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @test
  */
-class JSONTest extends TestCase
+class JSONMapTest extends TestCase
 {
     /**
      * Test for very simple JSON MAP {}
@@ -23,12 +24,26 @@ class JSONTest extends TestCase
      * @return void
      * @throws PHPBeanException
      */
-    public function testSimpleMap()
+    public function testParseObjectSimpleMap()
     {
         $simpleMapData = SimpleMapBean::getInstance();
         $jsonString = SimpleMapBean::getJsonString();
         $parseObj = JSON::parseObj($jsonString, SimpleMapBean::class);
         self::assertEquals($simpleMapData, $parseObj);
+    }
+
+    /**
+     * Test for very simple JSON Element List
+     *
+     * @return void
+     * @throws PHPBeanException
+     */
+    public function testParseObjectSimpleListElement()
+    {
+        $simpleListData = SimpleListBean::getInstance();
+        $jsonString = SimpleListBean::getJsonString();
+        $parseObj = JSON::parseObj($jsonString, SimpleListBean::class);
+        self::assertEquals($simpleListData, $parseObj);
     }
 
     /**

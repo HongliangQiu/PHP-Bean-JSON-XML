@@ -91,7 +91,6 @@ spl_autoload_register(function ($className) {
 
     $className = str_replace('\\', DIRECTORY_SEPARATOR, $className);
     $file = __DIR__ . DIRECTORY_SEPARATOR . $className . '.php';
-    // todo file_exists 慢，用缓存，第一次进入，缓存项目下存在的所有 .php 文件，然后再用 file 做比对，存在则处理，代替 file_exists，一次读完，避免频繁读取
     if (is_file($file)) {
         require $file;
     }
