@@ -2,7 +2,7 @@
 
 namespace PHPBeanTest;
 
-require ("../autoload.php");
+require("../autoload.php");
 
 use PHPBean\Exception\PHPBeanException;
 use PHPBean\JSON;
@@ -10,7 +10,6 @@ use PHPBeanTest\Data\GoodsInfoBean;
 use PHPBeanTest\Data\OrderBean;
 use PHPBeanTest\Data\OrderInfoBean;
 use PHPBeanTest\Data\SimpleMap\SimpleMapBean;
-use PHPBeanTest\Data\SimpleMap\SimpleMapData;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,13 +19,16 @@ class JSONTest extends TestCase
 {
     /**
      * Test for very simple JSON MAP {}
+     *
      * @return void
+     * @throws PHPBeanException
      */
-    public function testSimpleJSONMap()
+    public function testSimpleMap()
     {
-        $jsonString = SimpleMapData::getJsonString();
+        $simpleMapData = SimpleMapBean::getInstance();
+        $jsonString = SimpleMapBean::getJsonString();
         $parseObj = JSON::parseObj($jsonString, SimpleMapBean::class);
-        var_dump($parseObj);
+        self::assertEquals($simpleMapData, $parseObj);
     }
 
     /**
@@ -61,7 +63,6 @@ class JSONTest extends TestCase
         }
         $spend = (microtime(true) - $start) * 1000;
         logx("json_decode spend:" . $spend);
-        // logx($orderBeanResult, true);
 
         self::assertNotNull($orderBeanResult);
         // self::assertIsString($orderBeanResult->orderNo);
@@ -81,12 +82,12 @@ class JSONTest extends TestCase
     {
         // $orderBeanExpect = $this->getOrderBean();
         $orderBeanExpect = array(
-            'orderNo'  => '订单号',
+            'orderNo'   => '订单号',
             'orderInfo' => array(
                 'goodsCount' => 2,
                 'isCod'      => 'Y',
                 'amount'     => 1.123,
-                'owner_no'    => 'ownerNo别名',
+                'owner_no'   => 'ownerNo别名',
                 'ownerNo'    => 'ownerNo',
             ),
             'goodsList' => array(
@@ -118,7 +119,9 @@ class JSONTest extends TestCase
         $this->testGoodsInfoList($orderBeanResult->goodsList);
     }
 
-
+    /**
+     * @throws PHPBeanException
+     */
     public function testParseList()
     {
         $goodsList = array(
@@ -224,41 +227,4 @@ class JSONTest extends TestCase
         self::assertIsString($orderInfoBean->ownerNo);
         self::assertEquals("ownerNo", $orderInfoBean->ownerNo);
     }
-
-    private function getOrderBean(): OrderBean
-    {
-        $orderInfoBean = new OrderInfoBean();
-
-        $orderInfoBean->goodsCount = 2;
-        $orderInfoBean->isCod = 'Y';
-        $orderInfoBean->amount = 1.123;
-        $orderInfoBean->ownerNo = "ownerNo";
-
-        $goodsListBean = new GoodsInfoBean();
-        $goodsListBean->num = 0;
-        $goodsListBean->specNo = "商家编码0";
-        $goodsList[] = $goodsListBean;
-
-        $goodsListBean = new GoodsInfoBean();
-        $goodsListBean->num = 1;
-        $goodsListBean->specNo = "商家编码1";
-        $goodsList[] = $goodsListBean;
-
-        $orderBean = new OrderBean();
-        $orderBean->orderNo = "订单号";
-        $orderBean->orderInfo = $orderInfoBean;
-        // orderBean->orderInfo = $ord;
-        $orderBean->snList = ['sn0', 'sn1', 'sn2',];
-        $orderBean->goodsList = $goodsList;
-
-        return $orderBean;
-    }
-}
-
-function logx($msg): void
-{
-    if ($msg === null) {
-        $msg = 'null';
-    }
-    fwrite(STDOUT, print_r($msg, true) . "\r\n");
 }
