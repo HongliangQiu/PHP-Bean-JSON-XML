@@ -4,6 +4,7 @@ namespace PHPBean;
 
 use Exception;
 use PHPBean\Exception\PHPBeanException;
+use ReflectionException;
 use SimpleXMLElement;
 
 /**
@@ -24,7 +25,11 @@ class XML
     public static function parseObj(?string $xmlString, string $className): ?object
     {
         $simpleXMLElement = self::getSimpleXMLElement($xmlString);
-        return ObjectToBean::parseObj($simpleXMLElement, $className);
+        try {
+            return ObjectToBean::parseObj($simpleXMLElement, $className);
+        } catch (ReflectionException $e) {
+            throw new PHPBeanException($e);
+        }
     }
 
     /**

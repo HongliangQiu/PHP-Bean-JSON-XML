@@ -51,4 +51,5 @@ class ListPropertyType implements ExtensionBeforeHandle
         $classPropertyInfo->setListDimension($this->listDimension);
         $classPropertyInfo->setPropertyType($this->typeName);
     }
+
 }

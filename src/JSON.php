@@ -2,7 +2,9 @@
 
 namespace PHPBean;
 
+use JsonException;
 use PHPBean\Exception\PHPBeanException;
+use ReflectionException;
 
 // todo 增加【配置】默认值选项，如果不存在是否执行默认初始化默认值操作
 
@@ -23,11 +25,21 @@ class JSON
      */
     public static function parseList(?string $jsonStr, string $className): ?array
     {
-        $list = json_decode($jsonStr, false, 512, JSON_THROW_ON_ERROR);
+        try {
+            $list = json_decode($jsonStr, false, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
+            throw new PHPBeanException($e->getMessage());
+        }
+
         if (!array_is_list($list)) {
             throw new PHPBeanException("JSON::parseList failure: the json data is not a list. Please check your json string.");
         }
-        return ObjectToBean::parseList($list, $className);
+
+        try {
+            return ObjectToBean::parseList($list, $className);
+        } catch (ReflectionException $e) {
+            throw new PHPBeanException($e->getMessage());
+        }
     }
 
     /**
@@ -40,7 +52,16 @@ class JSON
      */
     public static function parseObj(?string $jsonStr, string $className): ?object
     {
-        $object = json_decode($jsonStr, false, 512, JSON_THROW_ON_ERROR);
-        return ObjectToBean::parseObj($object, $className);
+        try {
+            $object = json_decode($jsonStr, false, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
+            throw new PHPBeanException($e);
+        }
+
+        try {
+            return ObjectToBean::parseObj($object, $className);
+        } catch (ReflectionException $e) {
+            throw new PHPBeanException($e);
+        }
     }
 }
