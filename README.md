@@ -110,6 +110,35 @@ class ValidationTestBean
 }
 ```
 
+```php
+class ListPropertyTypeBean
+{
+    /**
+     * 1 dimensional array
+     *
+     * @var int[]
+     */
+    #[ListPropertyType(TypeName::INT)]
+    public array $oneArray = [1, 2, 3];
+
+    /**
+     * 2 dimensional array
+     *
+     * @var int[][]
+     */
+    #[ListPropertyType(TypeName::INT, 2)]
+    public array $twoDimensionalArray = [
+        [1, 2, 3],
+        [4, 5, 6],
+    ];
+}
+
+$jsonString = <<<JSON
+{"oneArray":[1,2,3],"twoDimensionalArray":[[1,2,3],[4,5,6]]}
+JSON;
+$parseObj = JSON::parseObj($jsonString, ListPropertyTypeBean::class);
+```
+
 - The getter/setter name should be 'camelCase'; support set{camelCase}, get{camelCase}, is{camelCase} methods.
 - 建议都加上默认值，或者有 getter 方法，内部用 isset() 或者 ?? 处理，返回默认值，PHP8 要求对象必须初始化（initialized）后才能使用
 - 所有的对象嵌套，都允许为 null，便于使用
