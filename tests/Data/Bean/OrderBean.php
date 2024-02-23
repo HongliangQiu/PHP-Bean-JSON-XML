@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPBeanTest\Data\Bean;
+namespace Data\Bean;
 
+use Data\BeanInstance;
 use PHPBean\Attributes\ListPropertyType;
-use PHPBeanTest\Data\BeanInstance;
 
 class OrderBean implements BeanInstance
 {

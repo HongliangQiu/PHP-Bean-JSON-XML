@@ -1,9 +1,8 @@
 <?php
 
-namespace PHPBeanTest\Data\SimpleMap;
+namespace Data\SimpleMap;
 
-use PHPBean\Attributes\Validator\NotBlank;
-use PHPBeanTest\Data\BeanInstance;
+use Data\BeanInstance;
 use stdClass;
 
 class SimpleMapBean implements BeanInstance

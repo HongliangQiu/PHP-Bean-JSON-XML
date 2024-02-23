@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPBeanTest\Data;
+namespace Data;
 
 interface BeanInstance
 {

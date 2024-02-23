@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPBeanTest\Data\Bean;
+namespace Data\Bean;
 
-use PHPBeanTest\Data\BeanInstance;
+use Data\BeanInstance;
 
 class OrderInfoBean implements BeanInstance
 {

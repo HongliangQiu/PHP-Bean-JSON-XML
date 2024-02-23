@@ -1,10 +1,10 @@
 <?php
 
-namespace PHPBeanTest\Data\Bean;
+namespace Data\Bean;
 
+use Data\BeanInstance;
 use PHPBean\Attributes\ListPropertyType;
 use PHPBean\Enum\TypeName;
-use PHPBeanTest\Data\BeanInstance;
 
 class GetterSetterBean implements BeanInstance
 {

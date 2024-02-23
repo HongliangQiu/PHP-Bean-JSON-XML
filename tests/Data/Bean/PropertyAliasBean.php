@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPBeanTest\Data\Bean;
+namespace Data\Bean;
 
+use Data\BeanInstance;
 use PHPBean\Attributes\PropertyAlias;
-use PHPBeanTest\Data\BeanInstance;
 use stdClass;
 
 class PropertyAliasBean implements BeanInstance

@@ -1,12 +1,10 @@
 <?php
 
-namespace PHPBeanTest;
+require("autoload.php");
 
-require("../autoload.php");
-
+use Data\Bean\GetterSetterBean;
 use PHPBean\Exception\PHPBeanException;
 use PHPBean\JSON;
-use PHPBeanTest\Data\Bean\GetterSetterBean;
 use PHPUnit\Framework\TestCase;
 
 /**

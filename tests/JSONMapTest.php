@@ -1,14 +1,12 @@
 <?php
 
-namespace PHPBeanTest;
+require("autoload.php");
 
-require("../autoload.php");
-
+use Data\Bean\OrderBean;
+use Data\SimpleMap\SimpleListBean;
+use Data\SimpleMap\SimpleMapBean;
 use PHPBean\Exception\PHPBeanException;
 use PHPBean\JSON;
-use PHPBeanTest\Data\Bean\OrderBean;
-use PHPBeanTest\Data\SimpleMap\SimpleListBean;
-use PHPBeanTest\Data\SimpleMap\SimpleMapBean;
 use PHPUnit\Framework\TestCase;
 
 /**

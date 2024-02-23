@@ -1,11 +1,10 @@
 <?php
 
-namespace PHPBeanTest\Data\SimpleMap;
+namespace Data\SimpleMap;
 
+use Data\BeanInstance;
 use PHPBean\Attributes\ListPropertyType;
 use PHPBean\Enum\TypeName;
-use PHPBeanTest\Data\BeanInstance;
-use stdClass;
 use TestUtil;
 
 class SimpleListBean implements BeanInstance

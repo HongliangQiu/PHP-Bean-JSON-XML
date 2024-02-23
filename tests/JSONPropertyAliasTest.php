@@ -1,12 +1,10 @@
 <?php
 
-namespace PHPBeanTest;
+require("autoload.php");
 
-require("../autoload.php");
-
+use Data\Bean\PropertyAliasBean;
 use PHPBean\Exception\PHPBeanException;
 use PHPBean\JSON;
-use PHPBeanTest\Data\Bean\PropertyAliasBean;
 use PHPUnit\Framework\TestCase;
 
 /**
