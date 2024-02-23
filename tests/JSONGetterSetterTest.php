@@ -1,6 +1,6 @@
 <?php
 
-require("autoload.php");
+require(__DIR__ . "/autoload.php");
 
 use Data\Bean\GetterSetterBean;
 use PHPBean\Exception\PHPBeanException;
