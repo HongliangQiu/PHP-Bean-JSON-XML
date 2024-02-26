@@ -67,6 +67,33 @@ JSON;
 $orderBean = JSON::parseObj($jsonString, OrderBean::class);
 ```
 
+### 解析 JSON List 数据（“[{}]”）
+
+```php
+class SimpleMapBean
+{
+    public ?string $vNull = null;
+    public ?string $vString = '';
+    public ?bool $vBool = false;
+    public ?bool $vTrue = true;
+    public ?bool $vFalse = false;
+    public ?bool $vBoolean = true;
+    public ?int $vInt = 10;
+    public ?int $vInteger = -1;
+    public ?float $vFloat = 1.234;
+    public ?float $vDouble = 1.3456789;
+    public ?array $vArray = [1, 2, 3];
+    public ?object $vObject = null;
+    public ?stdClass $vStdClass = null;
+}
+
+$jsonString = <<<JSON
+[{"vNull":null,"vString":"","vBool":false,"vTrue":true,"vFalse":false,"vBoolean":true,"vInt":10,"vInteger":-1,"vFloat":1.234,"vDouble":1.3456789,"vArray":[1,2,3],"vObject":{"a":"a","b":"b"},"vStdClass":{"m1":"m1","m2":"m2"}},{"vNull":null,"vString":"","vBool":false,"vTrue":true,"vFalse":false,"vBoolean":true,"vInt":10,"vInteger":-1,"vFloat":1.234,"vDouble":1.3456789,"vArray":[1,2,3],"vObject":{"a":"a","b":"b"},"vStdClass":{"m1":"m1","m2":"m2"}}]
+JSON;
+
+$parseList = JSON::parseList($jsonString, SimpleMapBean::class);
+```
+
 ### 使用注解声明类成员别名
 
 ```php
@@ -86,6 +113,7 @@ $propertyAliasBean = JSON::parseObj($jsonString, PropertyAliasBean::class);
 ```
 
 ### 使用数据校验器 Validator 在序列化同时校验数据
+
 ```php
 class ValidationTestBean
 {
